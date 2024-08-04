@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;  
+    background-color: whitesmoke;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #000000;
+    margin: 0.5em 0;
+    padding: 0;
+}
+#form-label {
+    margin: 0px; 
+    color: black;
+    text-shadow: 2px 4px 4px rgb(193, 189, 189);
+}
+.wrapper {
+    background-color: rgb(224, 217, 217);
+    padding: 20px 40px;
+    border-style: solid;
+    border-radius: 15px;
+    border-width: 2px; 
+    border-color: black;
+    box-shadow: 3px 8px 4px rgb(193, 189, 189);
+}
+.main-form {
+    display: flex;
+    flex-direction: column;
+}
+.main-form > div{
+    display: flex;
+    justify-content: center;
+    margin: 20px;  
+}
+
+.text-box{
+    display: block;
+    margin-bottom: 0px;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 10px 53px;
+    box-shadow: 2px 6px 4px rgb(193, 189, 189);
+    text-align: start;
+}
+
+.text-box.error::placeholder {
+    color: rgb(221, 26, 26); 
+}
+
+#submit-btn {
+    background-color: black;
+    color: white;
+    padding: 15px 35px;
+    font-size: 15px;
+    border: none;
+    border-radius: 15px;
+    transition: padding 200ms;
+}
+
+#submit-btn:hover{
+    cursor: pointer;
+    padding-left: 45px;
+    padding-right: 45px;
+    box-shadow: 2px 6px 4px rgb(193, 189, 189);
+}
+
+#submit-btn:active {
+    color: black; 
+    background: white;
+}

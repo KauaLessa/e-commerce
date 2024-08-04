@@ -139,6 +139,7 @@ class Admin(User):
             myUser.street = location.street
             return myUser      
     
+    @staticmethod
     def insert_product(pd_name:str, pd_cost:float, pd_quantity:int):
         Products.objects.create(product_name=pd_name, cost=pd_cost, quantity=pd_quantity)
     
