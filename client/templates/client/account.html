@@ -1,0 +1,22 @@
+{% extends 'client/base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'client/account.css' %}">
+{% block extra-style %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebar-item">
+                <a class="sidebar-text">Manage Login</a>    
+            </div>
+            <div class="sidebar-item">
+                <a class="sidebar-text">Manage Location</a>    
+            </div>
+        </div>
+        {% block acc-content %}{% endblock %}
+    </div>
+{% endblock %}

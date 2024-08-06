@@ -1,8 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from .models import Logins
+from .client import User
 
-class CreateValidator():
+class CreateAccValidator():
     invalidNameMsg = '*Name: 3 characters min' 
     invalidPasswordMsg = '*Password: 8 characters min'
     invalidEmailMsg = '*Email: Invalid email address'
@@ -35,3 +36,14 @@ class CreateValidator():
         self.invalidForm = self.invalidName or self.invalidPassword or self.invalidEmail or self.emailExists
         # Debug print(self.invalidForm)         
         
+class SignInValidator():
+    invalidMsg = "Wrong email or password."
+     
+    def __init__(self, email:str, password:str):
+        self.invalidForm = False
+
+        try:
+            if Logins.objects.get(email=email, password=password):
+                pass
+        except Logins.DoesNotExist:
+            self.invalidForm = True

@@ -1,0 +1,33 @@
+{% extends "client/account.html" %}
+
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'client/accData.css' %}">
+{% endblock %}
+
+{% block acc-content %}
+    <div id="wrapper-data">
+        <div class="account-data">
+            <a>Your name: My name</a>
+        </div>
+        <div class="account-data">
+            <a>Your email: My email</a>
+        </div>
+        <div class="account-data">
+            <a>Country: My country</a>
+        </div>
+        <div class="account-data">
+            <a>State: My state</a>
+        </div>
+        <div class="account-data">
+            <a>City: My city</a>
+        </div>
+        <div class="account-data">
+            <a>District: My district</a>
+        </div>
+        <div class="account-data">
+            <a>Street: My street</a>
+        </div>
+    </div>
+{% endblock %}

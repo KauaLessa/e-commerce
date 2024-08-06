@@ -19,6 +19,9 @@ from django.urls import path
 from client import views
 
 urlpatterns = [
-    path('', views.create, name="create"),
+    path('', views.index, name="index"), 
+    path('create/', views.create, name="create"),
+    path('signIn/', views.signIn, name="signIn"),
+    path('account/', views.account, name="account"),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,18 @@
+#wrapper {
+    display: grid; 
+    width: 100%;
+    grid-template-columns: 15% 50%;
+    grid-column-gap: 50px;
+}
+
+#sidebar {
+    display: flex; 
+    flex-direction: column;
+    align-content: start;
+    border-right: 1px solid;
+}
+
+.sidebar-item {
+    margin-left: 20px;
+    margin-bottom: 26px; 
+}

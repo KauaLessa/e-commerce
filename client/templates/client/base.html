@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <title>Nav Bar</title>
+        <link rel="stylesheet" href="{% static 'client/nav.css' %}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div id="wrapper-nav">
+            <nav id="grid-nav">
+                <div>
+                    <a class="nav-item">Home</a>
+                </div>
+                <div>
+                    <a class="nav-item">About</a>
+                </div>
+                <div>
+                    <a class="nav-item" href="{% url 'signIn' %}">Sign in</a>
+                </div>
+                <div>
+                    <a class="nav-item" href="{% url 'create' %}">Create Account</a>
+                </div>
+            </nav>
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+#wrapper-data {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    border-style: none;
+    /*border-style: solid;
+    border-width: 1px;
+    border-color: black;*/
+    border-radius: 18px;  
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: inherit; 
+}
+
+.account-data {
+    margin: 15px 10px;
+}

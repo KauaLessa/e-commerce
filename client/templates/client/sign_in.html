@@ -1,0 +1,33 @@
+{% extends "client/base.html" %}
+
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'client/sign_in.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="wrapper-sign-in">
+        <form class="main-form"  method="POST" action="">
+            {% csrf_token %}
+            <div>
+                <h1 id="form-label">SIGN IN</h1>
+            </div>
+            <hr id='label-line'>
+            {% if validator.invalidForm %}
+                <div id="invalid">
+                    <span id="invalid-msg">{{validator.invalidMsg}}</span>
+                </div>
+            {% endif %}
+            <div>
+                <input class="text-box" type="text" placeholder="Email" name="email">
+            </div>
+            <div>
+                <input class="text-box" type="text" placeholder="Password" name="password">
+            </div>
+            <div>
+                <input id="submit-btn" type="submit" value="SIGN IN">
+            </div>
+        </form>
+    </div>
+{% endblock %}
