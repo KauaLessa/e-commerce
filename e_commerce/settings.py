@@ -75,11 +75,11 @@ WSGI_APPLICATION = 'e_commerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASE_ROUTERS = ['client.UsersRouter.UsersRouter', 'products.InventoryRouter.InventoryRouter']
+# DATABASE_ROUTERS = ['client.UsersRouter.UsersRouter', 'products.InventoryRouter.InventoryRouter']
 
 DATABASES = {
-    'default': {},
-    'users': {
+    #'default': {},
+    'default': {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "ec_users",
         "USER": "root",

@@ -8,26 +8,37 @@
 
 {% block acc-content %}
     <div id="wrapper-data">
-        <div class="account-data">
-            <a>Your name: My name</a>
+        <div class="inner" id="login">
+            <div class="label">
+                <spam>Login</spam>
+            </div><hr>
+            <div class="account-data">
+                <a>Your name: My name</a>
+            </div>
+            <div class="account-data">
+                <a>Your email: My email</a>
+            </div>
         </div>
-        <div class="account-data">
-            <a>Your email: My email</a>
-        </div>
-        <div class="account-data">
-            <a>Country: My country</a>
-        </div>
-        <div class="account-data">
-            <a>State: My state</a>
-        </div>
-        <div class="account-data">
-            <a>City: My city</a>
-        </div>
-        <div class="account-data">
-            <a>District: My district</a>
-        </div>
-        <div class="account-data">
-            <a>Street: My street</a>
+        <div class="inner" id="location">
+            <div class="label">
+                <spam>Location</spam>
+            </div><hr>
+            <i class='bx bx-current-location'></i>
+            <div class="account-data">
+                <a>Country: My country</a>
+            </div>
+            <div class="account-data">
+                <a>State: My state</a>
+            </div>
+            <div class="account-data">
+                <a>City: My city</a>
+            </div>
+            <div class="account-data">
+                <a>District: My district</a>
+            </div>
+            <div class="account-data">
+                <a>Street: My street</a>
+            </div>
         </div>
     </div>
 {% endblock %}

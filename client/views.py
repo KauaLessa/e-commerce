@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .formsValidators import CreateAccValidator
 from .formsValidators import SignInValidator
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "client/base.html", {})
@@ -43,7 +44,9 @@ def signIn(request):
     else:
         return render(request, "client/sign_in.html", {})
     
-
 def account(request):
     return render(request, "client/accData.html", {})
+
+def updateLogin(request):
+    return render(request, "client/updateLogin.html", {})
 

@@ -1,0 +1,32 @@
+{% extends "client/account.html" %}
+
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'client/updateLogin.css' %}">
+{% endblock %}
+
+{% block acc-content %}
+<div id="wrapper-login">
+    <form id="manage-form" action="client" method="POST", action="">
+        <div id="main-label">
+            <spam>Manage Login</spam>
+        </div><hr>
+        <div class="account-data">
+            <label for="name" class="input-label">Name</label>
+            <input type="text" class="text-box" name="name" placeholder="Your name"></input>
+        </div>
+        <div class="account-data">
+            <label for="email" class="input-label">Email</label>
+            <input type="text" class="text-box" name="email" placeholder="Your email"></input>
+        </div>
+        <div class="account-data">
+            <label for="password" class="input-label">password</label>
+            <input type="text" class="text-box" name="password" placeholder="Your password"></input>
+        </div>
+        <div>
+            <input type="submit" value="CHANGE"></input>
+        </div>
+    </form>
+</div>
+{% endblock %}

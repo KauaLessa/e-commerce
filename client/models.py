@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -27,3 +28,9 @@ class Logins(models.Model):
     class Meta:
         managed = True
         db_table = 'logins'
+        
+class MyUser(User):
+    def __init__(self, name, email, password):
+        super().__init__(username=name, email=email, password=password)
+        
+        
