@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'products2/catalog.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1 id="catalog-label">Products</h1>
+    <div class="catalog-wrapper">
+        {% for product in products %}
+            <div class="product-wrapper">
+                <a href="/product/{{ product.id }}/">
+                    <img
+                        class="product-img"
+                        src="{{ product.image.url }}"
+                        alt="{{ product.image }}"
+                    >
+                </a>
+                <div class="product-info">
+                    <div class="product-name">
+                        <strong>{{ product.name }}</strong>
+                    </div>
+                    <div class="product-price">
+                        <span><strong>Price: </strong>{{ product.price }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

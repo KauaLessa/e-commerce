@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'products2/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="outer">
+        <div id="cart-items-wrapper">
+            <h2 id="label">Cart</h2>
+            {% for item in cart_items %}
+                <div class="item-wrapper">
+                    <div class="img-wrapper">
+                        <img class="item-img" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    </div>
+                    <div class="item-info">
+                        <div>
+                            <strong>{{ item.product.name }}</strong>
+                        </div>
+                        <div>
+                            <strong>R$: {{ item.product.price }}</strong>
+                        </div>
+                        <div class="item-shopping-details">
+                            <ul>
+                                <li class="shopping-info-item">3 months guarantee</li>
+                                <li class="shopping-info-item">Safe purchase</li>
+                                <li class="shopping-info-item">New product</li>
+                            </ul>
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-quantity">
+                                <button class="quantity-btn">Qnt: {{ item.quantity }}</button>
+                            </div>
+                            <div class="item-remove">
+                                <!-- add view to remove item from cart -->
+                                <a href="{% url 'remove_product_from_cart' id=item.id %}">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="cart-info-outer">
+            <div id="cart-info-inner">
+                <div class="cart-info">
+                    <strong><span class="cart-data">Total items: {{ cart.total_items }}</span></strong>
+                </div>
+                <div class="cart-info">
+                    <strong><span class="cart-data">Total cost: R$: {{ cart.total_cost }}</span></strong>
+                </div>
+                <div id="order-btn-wrapper">
+                    <button id="order-btn">Make order</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <title>Nav Bar</title>
+        <link rel="stylesheet" href="{% static 'client/nav.css' %}">
+        <link href='https://unpkg.com/boxicons/css/boxicons.min.css' rel='stylesheet'>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div id="wrapper-nav">
+            <nav id="grid-nav">
+                <div>
+                    <a class="nav-item" href="{% url 'index' %}">Home</a>
+                </div>
+                <div>
+                    <a class="nav-item">About</a>
+                </div>
+                <div>
+                    <a class="nav-item" href="{% url 'signIn' %}">Sign in</a>
+                </div>
+                <div>
+                    <a class="nav-item" href="{% url 'create' %}">Create Account</a>
+                </div>
+                <div>
+                    <a class="nav-item" href="{% url 'account' %}">Me</a>
+                </div>
+                <div>
+                    <a class="nav-item" href="{% url 'show_cart' %}">Cart</a>
+                </div>
+            </nav>
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

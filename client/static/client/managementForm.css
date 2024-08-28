@@ -1,0 +1,47 @@
+.wrapper-management {
+    display: flex; 
+    flex-direction: column; 
+    justify-items: start;
+    width: 75%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+#main-label {
+    padding-left: 8px;
+    padding-bottom: 10px;
+}
+
+.field-wrapper {
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+ul {
+    list-style-type: none; /* Remove o marcador */
+    padding: 0; /* Remove o padding esquerdo padrão */
+}
+
+.error-wrapper {
+    float: right;
+    font-size: 13px;
+    color: #f15c5c;
+}
+
+.input-label {
+    display: block;
+}
+
+.wrapper-management > div {
+    margin: 10px 10px; 
+}
+
+.submit {
+    padding-left: 8px;
+    padding-bottom: 8px;
+    padding: 10px 10px
+
+}

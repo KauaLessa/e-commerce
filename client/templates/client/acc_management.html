@@ -1,0 +1,14 @@
+<div id="main-label">
+    <span>Manage Login</span>
+</div>
+{% for field in form %}
+    <div class="field-wrapper">
+        <div class="input-wrapper">
+            <label class="input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        <div class="error-wrapper">
+            {{ field.errors }}
+        </div>
+    </div>
+{% endfor %}

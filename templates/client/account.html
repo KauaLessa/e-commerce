@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'client/account.css' %}">
+{% block extra-style %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="sidebar-item">
+                <a class="sidebar-text" href="{% url 'updateLogin' %}">Manage Login</a>
+            </div>
+            <div class="sidebar-item">
+                <a class="sidebar-text">Manage Location</a>    
+            </div>
+            <div class="sidebar-item">
+                <a class="sidebar-text" href="{% url 'changePassword' %}">Change password</a>
+            </div>
+            <div class="sidebar-item">
+                <a class="sidebar-text" href="{% url 'logout' %}">logout</a>
+            </div>
+            {% if user.is_staff %}
+                <div class="sidebar-item">
+                    <a class="sidebar-text" href="{% url 'add_product' %}">Add product</a>
+                </div>
+                <div class="sidebar-item">
+                    <a class="sidebar-text" href="{% url 'get_product_id' %}">Manage product</a>
+                </div>
+            {% endif %}
+        </div>
+        {% block acc-content %}{% endblock %}
+    </div>
+{% endblock %}

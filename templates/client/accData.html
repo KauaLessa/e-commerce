@@ -1,0 +1,46 @@
+{% extends "client/account.html" %}
+
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'client/accData.css' %}">
+{% endblock %}
+
+{% block acc-content %}
+    <div id="wrapper-data">
+        <div class="inner" id="login">
+            <div class="label">
+                <span>Login</span>
+                <i class='bx bxs-user label-icon'></i>
+            </div>
+            <div class="account-data">
+                <strong>Your name: </strong><i>{{user.username}}</i>
+            </div>
+            <div class="account-data">
+                <strong>Your email: </strong><i>{{user.email}}</i>
+            </div>
+        </div>
+        <div class="inner" id="location">
+            <div class="label">
+                <span>Location</span>
+                <i class='bx bx-current-location'></i>
+            </div>
+            <!-- <i class='bx bx-current-location'></i> -->
+            <div class="account-data">
+                <strong>Country: </strong><i>My country</i>
+            </div>
+            <div class="account-data">
+                <strong>State: </strong><i>My state</i>
+            </div>
+            <div class="account-data">
+                <strong>City: </strong><i>My city</i>
+            </div>
+            <div class="account-data">
+                <strong>District: </strong><i>My district</i>
+            </div>
+            <div class="account-data">
+                <strong>Street: </strong><i>My street</i>
+            </div>
+        </div>
+    </div>
+{% endblock %}
