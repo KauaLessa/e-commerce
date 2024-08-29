@@ -18,7 +18,7 @@ def add_product(request):
             form.save()
             form = ProductForm()
         try:
-            return render(request, 'products2/add_product.html', {'form': form})
+            return render(request, 'products/add_product.html', {'form': form})
         except TemplateDoesNotExist as e:
             print(f"Requested template does not exist. {e}")
             raise
@@ -28,7 +28,7 @@ def add_product(request):
     else:
         form = ProductForm()
         try:
-            return render(request, 'products2/add_product.html', {'form': form})
+            return render(request, 'products/add_product.html', {'form': form})
         except TemplateDoesNotExist as e:
             print(f"Requested template does not exist. {e}")
             raise
@@ -55,7 +55,7 @@ def get_product_id(request):
                 print(f"Requested view does not exist. {e}")
         else:
             try:
-                return render(request, 'products2/get_product_id.html', {'form': form})
+                return render(request, 'products/get_product_id.html', {'form': form})
             except TemplateDoesNotExist as e:
                 print(f"Requested template does not exist. {e}")
                 raise
@@ -66,7 +66,7 @@ def get_product_id(request):
         form = GetProductIdForm()
 
         try:
-            return render(request, 'products2/get_product_id.html', {'form':form})
+            return render(request, 'products/get_product_id.html', {'form':form})
         except TemplateDoesNotExist as e:
             print(f"Requested template does not exist. {e}")
             raise
@@ -102,7 +102,7 @@ def manage_product(request, id):
                 raise
         else:
             try:
-                return render(request, 'products2/manage_product.html', {'form': form})
+                return render(request, 'products/manage_product.html', {'form': form})
             except TemplateDoesNotExist as e:
                 print(f"Requested template does not exist. {e}")
                 raise
@@ -112,7 +112,7 @@ def manage_product(request, id):
     else:
         form = ProductForm(instance=pd)
         try:
-            return render(request, 'products2/manage_product.html', {'form':form})
+            return render(request, 'products/manage_product.html', {'form':form})
         except TemplateDoesNotExist as e:
             print(f"Requested template does not exist. {e}")
             raise
@@ -135,7 +135,7 @@ def show_cart(request):
     context =  {'cart':cart, 'cart_items':cart_items}
 
     try:
-        return render(request, 'products2/cart.html', context)
+        return render(request, 'products/cart.html', context)
     except TemplateDoesNotExist as e:
         print(f"The requested field does not exist. {e}")
         raise
@@ -216,7 +216,7 @@ def catalog(request):
     products = Product.objects.all()
 
     try:
-        return render(request, 'products2/catalog.html', {'products': products})
+        return render(request, 'products/catalog.html', {'products': products})
     except TemplateDoesNotExist as e:
         print(f"The requested field does not exist. {e}")
         raise
@@ -237,7 +237,7 @@ def product_page(request, id):
     context = {'product':product, 'reviews':reviews, 'user':request.user}
 
     try:
-        return render(request, 'products2/product.html', context)
+        return render(request, 'products/product.html', context)
     except TemplateDoesNotExist as e:
         print(f"The requested field does not exist. {e}")
         raise
@@ -277,7 +277,7 @@ def review_product(request, product_id, username):
                 print(f"The requested view does not exist. {e}")
         else:
             try:
-                return render(request, 'products2/review_product.html', {'form':form})
+                return render(request, 'products/review_product.html', {'form':form})
             except TemplateDoesNotExist as e:
                 print(f"The requested field does not exist. {e}")
                 raise
@@ -287,7 +287,7 @@ def review_product(request, product_id, username):
         form = ProductReviewForm()
 
         try:
-            return render(request, 'products2/review_product.html', {'form': form})
+            return render(request, 'products/review_product.html', {'form': form})
         except TemplateDoesNotExist as e:
             print(f"The requested field does not exist. {e}")
             raise
