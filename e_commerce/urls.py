@@ -20,7 +20,7 @@ from client import views
 from client.views import ChangePasswordView
 from django.contrib.auth.decorators import login_required
 from products.views import add_product, get_product_id, manage_product, catalog, product_page, add_to_cart, \
-    review_product
+    review_product, get_department, set_department_discount
 from products.views import show_cart, remove_product_from_cart
 from django.conf import settings
 from django.conf.urls.static import static
@@ -42,5 +42,7 @@ urlpatterns = [
     path('remove-from-cart/<int:id>', remove_product_from_cart, name="remove_product_from_cart"),
     path('cart/', show_cart, name='show_cart'),
     path('review-product/<int:product_id>/<str:username>/', review_product, name="review_product"),
+    path('get-department/', get_department, name="get_department"),
+    path('set-department-discount/<str:department>', set_department_discount, name="set_department_discount"),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
