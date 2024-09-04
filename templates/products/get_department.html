@@ -1,0 +1,19 @@
+{% extends "client/account.html" %}
+
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'client/managementForm.css' %}">
+{% endblock %}
+
+{% block acc-content %}
+    <div class="wrapper-management">
+        <form class="manage-form" method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            {{ form }}
+            <div class="submit">
+                <input type="submit" value="Get">
+            </div>
+        </form>
+    </div>
+{% endblock %}

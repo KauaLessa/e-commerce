@@ -15,12 +15,21 @@
                         <img class="item-img" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                     </div>
                     <div class="item-info">
-                        <div>
+                        <div id="product-name">
                             <strong>{{ item.product.name }}</strong>
                         </div>
-                        <div>
-                            <strong>R$: {{ item.product.price }}</strong>
-                        </div>
+                        {% if item.product.sale_price %}
+                            <div>
+                                <s>R$: {{ item.product.price }}</s>
+                            </div>
+                            <div>
+                                <strong>R$: {{ item.product.sale_price }}</strong>
+                            </div>
+                        {% else %}
+                            <div>
+                                <strong>{{ item.product.price }}</strong>
+                            </div>
+                        {% endif %}
                         <div class="item-shopping-details">
                             <ul>
                                 <li class="shopping-info-item">3 months guarantee</li>

@@ -19,8 +19,19 @@
                     <div>
                         <strong id="product-name">{{ product.name }}</strong><br>
                     </div>
-                    <div>
-                        <strong id="product-price">R$: {{ product.price }}</strong>
+                    <div id="product-price">
+                        {% if product.sale_price %}
+                            <div>
+                                <span><s>R$: {{ product.price }}</s></span>
+                            </div>
+                            <div>
+                                <span><strong>R$: {{ product.sale_price }}</strong></span>
+                            </div>
+                        {% else %}
+                            <div>
+                                <span><strong>R$: {{ product.price }}</strong></span>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="shopping-info">

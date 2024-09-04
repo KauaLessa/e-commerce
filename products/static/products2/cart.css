@@ -16,6 +16,8 @@
 
 .item-wrapper {
     display: grid;
+    padding-top: 20px;
+    padding-bottom: 20px;
     grid-template-columns: 25% 75%;
     border: solid #cccaca;
     border-width: 1px 0px 0px 0px;
@@ -82,4 +84,9 @@
     border-radius: 20px;
     background: black;
     color: white;
+}
+
+#product-name {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

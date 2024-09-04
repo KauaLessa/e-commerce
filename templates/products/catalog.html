@@ -7,25 +7,43 @@
 
 {% block content %}
     <h1 id="catalog-label">Products</h1>
+    <div id="filtering-bar-wrapper">
+        <div id="filtering-bar">
+            <div id="bar-departments-list">
+                <span class="filtering-bar-item"><strong>Department: </strong></span>
+                <a class="filtering-bar-item" href="{% url 'catalog' %}?department=electronics&sort_by={{ sort_by }}">Electronics</a>
+                <a class="filtering-bar-item fb-text" href="{% url 'catalog' %}?department=books&sort_by={{ sort_by }}">Books</a>
+                <a class="filtering-bar-item fb-text" href="{% url 'catalog' %}?department=house&sort_by={{ sort_by }}">House</a>
+            </div>
+            <div id="bar-filters">
+                <span class="filtering-bar-item"><strong>Sort by: </strong></span>
+                <a class="filtering-bar-item" href="{% url 'catalog' %}?department={{ department }}&sort_by=low_to_high">Low to high</a>
+                <a class="filtering-bar-item fb-text" href="{% url 'catalog' %}?department={{ department }}&sort_by=high_to_low">High to low</a>
+            </div>
+        </div>
+    </div>
     <div class="catalog-wrapper">
-        {% for product in products %}
+        {% if products %}
+            {% for product in products %}
             <div class="product-wrapper">
                 <a href="/product/{{ product.id }}/">
-                    <img
-                        class="product-img"
-                        src="{{ product.image.url }}"
-                        alt="{{ product.image }}"
-                    >
+                    <img class="product-img" src="{{ product.image.url }}" alt="{{ product.image }}">
                 </a>
                 <div class="product-info">
                     <div class="product-name">
                         <strong>{{ product.name }}</strong>
                     </div>
                     <div class="product-price">
-                        <span><strong>Price: </strong>{{ product.price }}</span>
+                        {% if product.sale_price %}
+                            <span><s>R$: {{ product.price }}</s></span>
+                            <span><strong>R$: {{ product.sale_price }}</strong></span>
+                        {% else %}
+                            <span><strong>R$: {{ product.price }}</strong></span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

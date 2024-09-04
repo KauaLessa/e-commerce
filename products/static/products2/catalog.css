@@ -11,6 +11,36 @@
     margin-bottom: 60px;
 }
 
+#filtering-bar-wrapper {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin: 0px 22px 60px 22px;
+    border: solid #cccaca;
+    border-width: 1px 0px 1px 0px;
+    font-size: 14px;
+}
+
+#filtering-bar {
+    display: inline-flex;
+    column-gap: 30px
+}
+
+#bar-departments-list {
+    margin-left: 30px;
+}
+
+
+.filtering-bar-item {
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.fb-text {
+    padding-left: 4px;
+    border: solid #cccaca;
+    border-width: 0px 0px 0px 1px;
+}
+
 .product-wrapper {
     display: flex;
     flex-direction: column;
@@ -51,4 +81,8 @@
 .product-name, .product-price {
     margin-left: 0px;
     align-content: start;
+}
+
+.product-price > span{
+    display: block;
 }
