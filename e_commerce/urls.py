@@ -20,8 +20,8 @@ from client import views
 from client.views import ChangePasswordView
 from django.contrib.auth.decorators import login_required
 from products.views import add_product, get_product_id, manage_product, catalog, product_page, add_to_cart, \
-    review_product, get_department, set_department_discount
-from products.views import show_cart, remove_product_from_cart
+    review_product, get_department, set_department_discount, show_cart, remove_product_from_cart, \
+    make_order, make_order_from_cart, show_orders, remove_order
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,7 +32,12 @@ urlpatterns = [
     path('account/', views.account, name="account"),
     path('updateLogin/', views.updateLogin, name="updateLogin"),
     path('changePassword/', login_required(ChangePasswordView.as_view(), login_url='/signIn/'), name="changePassword"),
+    path('manage-location/', views.manage_location, name="manage_location"),
+    path('manage-payment/', views.manage_payment, name="manage_payment"),
     path('logout/', views.logout_user, name="logout"),
+    path('make-comment/', views.make_comment, name="make_comment"),
+    path('answer-comment/<int:id>/', views.answer_comment, name="answer_comment"),
+    path('contact-us/', views.contact_us, name="contact_us"),
     path('get-product-id/', get_product_id, name="get_product_id"),
     path('add-product/', add_product, name="add_product"),
     path('manage-product/<int:id>/', manage_product, name="manage_product"),
@@ -45,4 +50,8 @@ urlpatterns = [
     path('get-department/', get_department, name="get_department"),
     path('set-department-discount/<str:department>', set_department_discount, name="set_department_discount"),
     path('admin/', admin.site.urls),
+    path('make-order/<int:id>/', make_order, name="make_order"),
+    path('make-order-from-cart/', make_order_from_cart, name='make_order_from_cart'),
+    path('orders/', show_orders, name="orders"),
+    path('remove-order<int:id>/', remove_order, name="remove_order")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

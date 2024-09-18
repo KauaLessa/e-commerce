@@ -1,0 +1,28 @@
+#wrapper {
+    margin-left: 40px;
+}
+
+#mid-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#about-contact-us {
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+.comments-outer {
+    background-color: white;
+    margin-bottom: 30px;
+}
+
+.comments-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-info {
+    border: solid #cccaca;
+    border-width: 1px 0px 0px 0px;
+}

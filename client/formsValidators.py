@@ -1,120 +1,72 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from .models import Logins
-
-class CreateAccValidator():
-    invalidNameMsg = '*Name: 3 characters min' 
+from django.contrib.auth.models import User
+class CreateAccValidator:
+    invalidNameMsg = '*Name: 3 characters min'
     invalidPasswordMsg = '*Password: 8 characters min'
     invalidEmailMsg = '*Email: Invalid email address'
-    emailExistsMsg = '*Email: Email alredy exists'
-     
-    def __init__(self, name:str, email:str, password:str):
+    nameExistsMsg = '*Username already exists'
 
-        # Tratamento de erro
+    def __init__(self, name: str, email: str, password: str):
+        self.__name = name
+        self.__email = email
+        self.__password = password
+        self.__invalidName = False
+        self.__invalidPassword = False
+        self.__invalidEmail = False
+        self.__nameExists = False
+        self.__invalid = False
 
-        if not isinstance(name, str):
-            raise TypeError("Name must be a string")
+    @property
+    def invalid(self):
+        return self.__invalid
+
+    @property
+    def invalidName(self):
+        return self.__invalidName
+
+    @property
+    def invalidEmail(self):
+        return self.__invalidEmail
+
+    @property
+    def invalidPassword(self):
+        return self.__invalidPassword
+
+    @property
+    def nameExists(self):
+        return self.__nameExists
+
+    def validate_atts_type(self) -> bool:
+        atts = [self.__name, self.__email, self.__password]
+
+        self.__invalid = not all(map(lambda x: isinstance(x, str), atts))
+
+        return self.__invalid
+
+    def validate_form(self) -> bool:
+        """
+        returns true if form is invalid
+        """
         
-        if not isinstance(email, str):
-            raise TypeError("Email must be a string")
+        if self.validate_atts_type():
+            return self.__invalid
 
-        if not isinstance(password, str):
-            raise TypeError("Password must be a string")
+        if len(self.__name) < 3:
+            self.__invalidName = True
 
-        self.invalidName = False
-        self.invalidPassword = False
-        self.emailExists = False
-        self.invalidEmail = False
-        self.invalidForm = False
+        if len(self.__password) < 8:
+            self.__invalidPassword = True
 
-        if len(name) < 3:
-            self.invalidName = True   
-            
-        if len(password) < 8:
-            self.invalidPassword = True
-            
         try:
-            if Logins.objects.get(email=email):
-                self.emailExists = True
-        except Logins.DoesNotExist:
+            if User.objects.get(username=self.__name):
+                self.__nameExists = True
+        except User.DoesNotExist:
             pass
-            
         try:
-            validate_email(email)
+            validate_email(self.__email)
         except ValidationError:
-            self.invalidEmail = True
- 
-        self.invalidForm = self.invalidName or self.invalidPassword or self.invalidEmail or self.emailExists
-        # Debug print(self.invalidForm)         
-        
+            self.__invalidEmail = True
 
-'''
-
-class SignInValidator():
-    invalidMsg = "Wrong email or password."
-     
-    def __init__(self, email:str, password:str):
-
-        # tratamento de erro 
-        # checando se argumentos sao do tipo esperado
-
-        if not isinstance(email, str):
-            raise TypeError('Email must be a string')
-
-        if not isinstance(password, str):
-            raise TypeError('Password must be a string')
-
-
-        self.invalidForm = False
-
-        # tratamento de erro
-
-        try:
-            if Logins.objects.get(email=email, password=password):
-                pass
-        except Logins.DoesNotExist:
-            self.invalidForm = True
-
-'''
-
-
-'''
-
-class UpdateAccValidator():
-    invalidNameMsg = '*Name: 3 characters min' 
-    invalidPasswordMsg = '*Password: 8 characters min'
-    invalidEmailMsg = '*Email: Invalid email address'
-     
-    def __init__(self, name:str, email:str, password:str):
-
-        if not isinstance(name, str):
-            raise TypeError("Name must be a string")
-        
-        if not isinstance(email, str):
-            raise TypeError("Email must be a string")
-
-        if not isinstance(password, str):
-            raise TypeError("Password must be a string")
-
-        self.invalidName = False
-        self.invalidPassword = False
-        self.invalidEmail = False
-        self.invalidForm = False
-        
-        if name and len(name) < 3:
-            self.invalidName = True   
-            
-        if password and len(password) < 8:
-            self.invalidPassword = True
-            
-        if email:
-            try:
-                validate_email(email)
-            except ValidationError:
-                self.invalidEmail = True
- 
-        self.invalidForm = self.invalidName or self.invalidPassword or self.invalidEmail
-        # Debug print(self.invalidForm) 
-
-'''
-        
+        self.__invalid = self.__invalidName or self.__nameExists or self.__invalidPassword or self.__invalidEmail
+        return self.__invalid
