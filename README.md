@@ -20,7 +20,7 @@ pip install django
 
 ## 4. Instale o Pillow:
 ```bash
-python -m pip install Pillow (bash)
+python -m pip install Pillow
 ```
 
 ## 5. Agora, clone o repositório:
