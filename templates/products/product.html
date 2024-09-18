@@ -53,7 +53,13 @@
                         </button>
                     </div>
                     <div>
-                        <button id="buy-btn" class="shopping-btn" value="Buy">Buy now</button> <!-- must add view -->
+                        <button
+                                id="buy-btn"
+                                class="shopping-btn"
+                                value="Buy"
+                                onclick="location.href = '/make-order/{{ product.id }}';"
+                                >Buy now
+                        </button> <!-- must add view -->
                     </div>
                 </div>
             </div>
@@ -65,27 +71,72 @@
                     {{ product.description }}
                 </div>
             </div>
-            <div id="reviews-outer">
+            <div class="reviews-outer">
                 <h3>Reviews</h3>
                 {% if user.is_authenticated %}
                     <a href="{% url 'review_product' product_id=product.id username=user.username %}">Review this product</a>
                 {% endif %}
-                <div id="reviews-inner">
+                <div class="reviews-inner">
                     {% for review in reviews %}
-                    <div class="product-review">
-                        <div class="review-header">
-                            <div>
-                                <span><strong>User:</strong> {{ review.user.username }}</span>
+                        <div class="product-review">
+                            <div class="review-header">
+                                <div>
+                                    <span><strong>User:</strong> {{ review.user.username }}</span>
+                                </div>
+                                <div>
+                                    <span><strong>Rating: </strong>{{ review.rating }}/5</span>
+                                </div>
                             </div>
-                            <div>
-                                <span><strong>Rating: </strong>{{ review.rating }}/5</span>
+                            <div class="review-text">
+                                <p>{{ review.review }}</p>
                             </div>
                         </div>
-                        <div class="review-text">
-                            <p>{{ review.review }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="reviews-outer">
+                <h3>Questions</h3>
+                {% if user.is_authenticated %}
+                    <!-- mudar isso para view de fazer pergunta -->
+                    <a href="{% url 'make_comment' %}?product-id={{ product.id }}">Ask a question</a>
+                {% endif %}
+                <div class="reviews-inner">
+                    {% for question in questions %}
+                        <div class="product-review">
+                            <div class="review-header">
+                                <div>
+                                    <span><strong>User:</strong> {{ question.user.username }}</span>
+                                </div>
+                                <div>
+                                    <span><strong>Date: </strong>{{ question.date_added }}</span>
+                                </div>
+                            </div>
+                            <div class="review-text">
+                                <p>{{ question.user_comment }}</p>
+                            </div>
+                            {% if question.answer %}
+                            <div>
+                                <div class="review-header">
+                                    <div>
+                                        <span><strong>Answer:</strong></span>
+                                    </div>
+                                    <div>
+                                        <span><strong>Date: </strong>{{ question.date_added }}</span>
+                                    </div>
+                                </div>
+                                <div class="review-text">
+                                    <p>{{ question.answer }}</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if user.is_staff and not question.answer %}
+                                <div>
+                                    <!-- view para responder pergunta -->
+                                    <a href="{% url 'answer_comment' question.id %}">Answer this question</a>
+                                </div>
+                            {% endif %}
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'client/contact_us.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+    <div id="header">
+        <h1>Contact us</h1>
+        <div id="about-contact-us">
+            <p>
+                Contact us about anything. If you had a bad experience in our store,
+                or you just want to make suggestions, this is the place.
+            </p>
+            {% if user.is_authenticated %}
+                <!-- mudar isso para view de fazer comentarios-->
+                <a href="{% url 'make_comment' %}">Make a suggestion/comment/complaint</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="comments-outer">
+        <h3>Experiences</h3>
+        <div class="comments-inner">
+            {% for comment in comments %}
+                <div class="comment-info">
+                    <div class="comment-header">
+                        <div>
+                            <span><strong>User:</strong> {{ comment.user.username }}</span>
+                        </div>
+                        <div>
+                            <span><strong>Date: </strong>{{ comment.date_added }}</span>
+                        </div>
+                    </div>
+                    <div class="comment-text">
+                        <p>{{ comment.user_comment }}</p>
+                    </div>
+                    {% if comment.answer %}
+                    <div>
+                        <div class="comment-header">
+                            <div>
+                                <span><strong>Answer:</strong></span>
+                            </div>
+                            <div>
+                                <span><strong>Date: </strong>{{ comment.date_added }}</span>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            <p>{{ comment.answer }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if user.is_staff and not comment.answer %}
+                <div>
+                    <!-- view para responder pergunta -->
+                    <a href="{% url 'answer_comment' comment.id %}">Answer this question</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

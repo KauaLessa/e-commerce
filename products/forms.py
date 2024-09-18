@@ -10,10 +10,11 @@ class GetProductIdForm(forms.Form):
 
 class ProductForm(forms.ModelForm):
     template_name = 'client/acc_management.html'
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), label='Select a department')
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'image', 'discount_percent']
+        fields = ['name', 'description', 'price', 'image', 'discount_percent', 'department']
 
 class ProductReviewForm(forms.Form):
     template_name = 'client/acc_management.html'

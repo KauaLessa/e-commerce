@@ -1,6 +1,6 @@
 #all-wrapper {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 240px;
     row-gap: 15vh;
     margin-right: 50px;
     margin-left: 50px;
@@ -84,11 +84,20 @@
     flex-direction: column;
 }
 
+#description-wrapper {
+    margin-bottom: 30px;
+}
+
 #product-description {
     font-size: 15px;
 }
 
-#reviews-inner {
+.reviews-outer {
+    background-color: white;
+    margin-bottom: 30px;
+}
+
+.reviews-inner {
     display: flex;
     flex-direction: column;
 }

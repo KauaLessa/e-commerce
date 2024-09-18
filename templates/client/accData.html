@@ -20,27 +20,29 @@
                 <strong>Your email: </strong><i>{{user.email}}</i>
             </div>
         </div>
-        <div class="inner" id="location">
+        {% if location %}
+            <div class="inner" id="location">
             <div class="label">
                 <span>Location</span>
                 <i class='bx bx-current-location'></i>
             </div>
             <!-- <i class='bx bx-current-location'></i> -->
             <div class="account-data">
-                <strong>Country: </strong><i>My country</i>
+                <strong>Country: </strong><i>{{ location.country }}</i>
             </div>
             <div class="account-data">
-                <strong>State: </strong><i>My state</i>
+                <strong>State: </strong><i>{{ location.state }}</i>
             </div>
             <div class="account-data">
-                <strong>City: </strong><i>My city</i>
+                <strong>City: </strong><i>{{ location.city }}</i>
             </div>
             <div class="account-data">
-                <strong>District: </strong><i>My district</i>
+                <strong>District: </strong><i>{{ location.district }}</i>
             </div>
             <div class="account-data">
-                <strong>Street: </strong><i>My street</i>
+                <strong>Street: </strong><i>{{ location.street }}</i>
             </div>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

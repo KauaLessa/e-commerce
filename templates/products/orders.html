@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'products2/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="outer">
+        <div id="order-items-wrapper">
+            <h2 id="label">Orders</h2>
+            {% for order in orders %}
+                <div class="item-wrapper">
+                    <div class="img-wrapper">
+                        <img class="item-img" src="{{ order.product.image.url }}" alt="{{ order.product.name }}">
+                    </div>
+                    <div class="item-info">
+                        <div id="product-name">
+                            <strong>{{ order.product.name }}</strong>
+                        </div>
+                        <div>
+                            <strong>R$: {{ order.cost }}</strong>
+                        </div>
+                        <div>
+                            <span>Ordered at {{ order.order_date }}</span>
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-quantity">
+                                <button class="quantity-btn">Qnt: {{ order.quantity }}</button>
+                            </div>
+                            <div class="item-remove">
+                                <!-- add view to remove orders -->
+                                <a href="{% url 'remove_order' order.id %}">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

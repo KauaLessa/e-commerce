@@ -17,6 +17,8 @@
             <div>
                 {% if validator.invalidName %}
                     <input class="text-box error" type="text" placeholder="{{validator.invalidNameMsg}}" name="name">
+                {% elif  validator.nameExists%}
+                    <input class="text-box error" type="text" placeholder="{{validator.nameExistsMsg}}" name="name">
                 {% else %}
                     <input class="text-box" type="text" placeholder="name" name="name">
                 {% endif %}
@@ -24,17 +26,15 @@
             <div>
                 {% if validator.invalidEmail %}
                     <input class="text-box error" type="text" placeholder="{{validator.invalidEmailMsg}}" name="email">
-                {% elif validator.emailExists %}
-                    <input class="text-box error" type="text" placeholder="{{validator.emailExistsMsg}}" name="email">
                 {% else %}
                     <input class="text-box" type="text" placeholder="Email" name="email">
                 {% endif %}
             </div>
             <div>
                 {% if validator.invalidPassword %}
-                    <input class="text-box error" type="text" placeholder="{{validator.invalidPasswordMsg}}" name="password">
+                    <input class="text-box error" type="password" placeholder="{{validator.invalidPasswordMsg}}" name="password">
                 {% else %}
-                    <input class="text-box" type="text" placeholder="Password" name="password">
+                    <input class="text-box" type="password" placeholder="Password" name="password">
                 {% endif %}
             </div>
             <div>

@@ -61,7 +61,8 @@
 }
 
 .product-img {
-    width: 30vh;
+    max-height: 45vh;
+    max-width: 45vh;
     display: block;
     /*
     margin-left: auto;

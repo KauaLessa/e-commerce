@@ -14,13 +14,19 @@
                 <a class="sidebar-text" href="{% url 'updateLogin' %}">Manage Login</a>
             </div>
             <div class="sidebar-item">
-                <a class="sidebar-text">Manage Location</a>    
+                <a class="sidebar-text" href="{% url 'manage_location' %}">Manage Location</a>
             </div>
             <div class="sidebar-item">
                 <a class="sidebar-text" href="{% url 'changePassword' %}">Change password</a>
             </div>
             <div class="sidebar-item">
                 <a class="sidebar-text" href="{% url 'logout' %}">logout</a>
+            </div>
+            <div class="sidebar-item">
+                <a class="sidebar-text" href="{% url 'manage_payment' %}">Payment</a>
+            </div>
+            <div class="sidebar-item">
+                <a class="sidebar-text" href="{% url 'orders' %}">Orders</a>
             </div>
             {% if user.is_staff %}
                 <div class="sidebar-item">

@@ -1,0 +1,24 @@
+{% extends "client/account.html" %}
+
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'client/managementForm.css' %}">
+{% endblock %}
+
+{% block acc-content %}
+    <div class="wrapper-management">
+        <form class="manage-form" method="POST" action="">
+            {% csrf_token %}
+            {% if not payment_info %}
+                <div>
+                    <span>Please insert your location</span>
+                </div>
+            {% endif %}
+            {{ form }}
+            <div class="submit">
+                <input type="submit" value="CHANGE">
+            </div>
+        </form>
+    </div>
+{% endblock %}
