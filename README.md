@@ -42,3 +42,14 @@ Suas credencias são:
 username: admin
 
 senha: password
+
+## ID do produto
+
+Uma vez dentro da página de um produto, é possível verificar o seu id através da url. 
+
+### Exemplo:
+
+http://127.0.0.1:8000/product/1/
+
+O id do produto é 1
+
