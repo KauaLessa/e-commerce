@@ -77,4 +77,4 @@ realizado. A cadeia verifica informações de pagamento, localização, estado d
 Facade foi utilizado para facilitar a inicialização e utilização completa da cadeia de responsabilidade.
 A utilização da cadeia completa requer uma série de instanciamentos e chamadas de métodos, portanto a 
 classe ***CompleteHandlerChain*** serve como uma fachada, cuidando desse processo de preparação
-necessário para utilizar da cadeia completa.
+necessário para utilizar a cadeia completa.
