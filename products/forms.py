@@ -2,6 +2,7 @@ import django.forms as forms
 from django.forms import models
 from products.models import Product, Department
 from django.core.validators import MinValueValidator, MaxValueValidator
+from .dp.observer import Subject
 
 class GetProductIdForm(forms.Form):
     template_name = 'client/acc_management.html'
@@ -14,6 +15,14 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
+        fields = ['name', 'description', 'price', 'image', 'discount_percent', 'department']
+
+class SubjectProductForm(forms.ModelForm):
+    template_name = 'client/acc_management.html'
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), label='Select a department')
+
+    class Meta:
+        model = Subject
         fields = ['name', 'description', 'price', 'image', 'discount_percent', 'department']
 
 class ProductReviewForm(forms.Form):

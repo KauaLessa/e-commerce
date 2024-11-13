@@ -53,3 +53,28 @@ http://127.0.0.1:8000/product/1/
 
 O id do produto é 1
 
+# Padrões de projeto
+4 padrões de projeto foram implementados. São 4 módulos no total, localizados no caminho products/dp
+
+## 1. Command
+O padrão de projeto command foi implementado na execução de tarefas que tangem o efetuamento de pedidos
+e manipulação do carrinho de maneira geral. O objetivo da implementação desse padrão de projeto foi separar
+a lógica de manipulação do banco de dados necessária para executar certas operações, assim como a facilidade
+de extensão dessas operações, através da implementação de novos commands. 
+
+## 2. Observer
+O padrão Observer foi implementado com o objetivo de suprir a necessidade de atualizar os carrinhos dos
+usuários uma vez que o preço de um produto contido em algum carrinho fora modificado pelo administrador.
+A implementação se deu através da extenção de classes já existentes. As classes ***Product*** e ***Cart*** foram
+extendidas nas subclasses Subject e Observer, respectivamente.
+
+## 3. Chain of Responsability (cor)
+Chain of Responsability foi utilizado para gerir o processo de efetivação de um pedido. Este padrão de
+projeto foi implementado pois uma série de verificações devem ser feitas para que de fato o pedido seja
+realizado. A cadeia verifica informações de pagamento, localização, estado do carrinho, entre outras.
+
+## 4. Facade
+Facade foi utilizado para facilitar a inicialização e utilização completa da cadeia de responsabilidade.
+A utilização da cadeia completa requer uma série de instanciamentos e chamadas de métodos, portanto a 
+classe ***CompleteHandlerChain*** serve como uma fachada, cuidando desse processo de preparação
+necessário para utilizar da cadeia completa.

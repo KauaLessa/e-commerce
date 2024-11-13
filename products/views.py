@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import ProductForm, GetProductIdForm, ProductReviewForm, GetDepartmentForm, \
-    SetDepartmentDiscountForm
+from .forms import SubjectProductForm, GetProductIdForm, ProductReviewForm, GetDepartmentForm, \
+    SetDepartmentDiscountForm, ProductForm
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem, Cart, ProductReview, Department, OrderItem
 from django.contrib.auth.models import User
@@ -10,8 +10,11 @@ from django.core.exceptions import ViewDoesNotExist, ObjectDoesNotExist, FieldDo
 from django.urls.exceptions import NoReverseMatch
 from django.urls import reverse
 from django.db.models.functions import Coalesce
-from client.models import Locations, PaymentMethod, Comments
-from django.db.models import Subquery, F, When, Case
+from client.models import Comments
+from .dp.observer import Subject
+from .dp import command as cmd
+from .dp import cor
+from .dp.facade import CompleteHandlerChain
 
 @login_required(login_url='/signIn/')
 def add_product(request):
@@ -63,32 +66,22 @@ def get_product_id(request):
             print(e)
             raise
 
-
 @login_required()
 def manage_product(request, id):
 
     try:
-        product = Product.objects.get(id=id)
+        product_subject = Subject.objects.get(id=id)
     except (FieldDoesNotExist, ObjectDoesNotExist) as e:
         print(e)
         raise
 
-    old_discount_percent = product.discount_percent
-    old_price = product.price
-
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
+        form = SubjectProductForm(request.POST, request.FILES, instance=product_subject)
 
         if form.is_valid():
             product_new = form.save(commit=False)
-
-            if product_new.discount_percent != old_discount_percent or old_price != product_new.price:
-
-                Product.recalc_price(product_new)
-                Cart.recalc_price(product_new)
-
-            else:
-                product_new.save()
+            product_new.verifyState()
+            product_new.save()
 
             try:
                 return HttpResponseRedirect(reverse('get_product_id'))
@@ -102,7 +95,7 @@ def manage_product(request, id):
                 print(e)
                 raise
     else:
-        form = ProductForm(instance=product)
+        form = SubjectProductForm(instance=product_subject)
         try:
             return render(request, 'products/manage_product.html', {'form':form})
         except (TemplateDoesNotExist, ViewDoesNotExist) as e:
@@ -126,7 +119,6 @@ def show_cart(request):
         print(f"The requested field does not exist. {e}")
         raise
 
-
 @login_required
 def make_order_from_cart(request):
     try:
@@ -135,19 +127,8 @@ def make_order_from_cart(request):
         cart = None
 
     if cart:
-        try:
-            Locations.objects.get(user=request.user)
-        except Locations.DoesNotExist:
-            return HttpResponseRedirect(reverse('manage_location'))
-        try:
-            PaymentMethod.objects.get(user=request.user)
-        except PaymentMethod.DoesNotExist:
-            return HttpResponseRedirect(reverse('manage_payment'))
-        else:
-            cart = Cart.objects.get(user=request.user)
-            Cart.place_order_from_cart(cart)
-            Cart.remove_all_items(cart)
-            return HttpResponseRedirect(reverse('orders'))
+        chain = CompleteHandlerChain()
+        return chain.handle(request)
     else:
         return HttpResponseRedirect(reverse('show_cart'))
 
@@ -161,19 +142,8 @@ def add_to_cart(request, id):
         print(f"The requested field does not exist. {e}")
         raise
 
-    # Atualizando campos
-    cart_item.quantity += 1
-    cart.total_items += 1
-
-    if pd.sale_price:
-        print("Calculating total price...")
-        print(f"{cart.total_cost} + {pd.sale_price} = {cart.total_cost + pd.sale_price}")
-        cart.total_cost += pd.sale_price
-    else:
-        cart.total_cost += pd.price
-
-    cart_item.save()
-    cart.save()
+    invoker = cmd.Invoker(cmd.AddToCartCommand(cart, cart_item))
+    invoker.executeCommand()
 
     try:
         return HttpResponseRedirect(reverse('show_cart'))
@@ -187,18 +157,13 @@ def remove_product_from_cart(request, id):
     try:
         cart = Cart.objects.get(user=request.user)
         cart_item = CartItem.objects.get(id=id)
+
     except FieldDoesNotExist as e:
         print(f"The requested field does not exist. {e}")
         raise
 
-    if cart_item.product.sale_price:
-        cart.total_cost -= cart_item.quantity * cart_item.product.sale_price
-    else:
-        cart.total_cost -= cart_item.quantity * cart_item.product.price
-
-    cart.total_items -= cart_item.quantity
-    cart_item.delete()
-    cart.save()
+    invoker = cmd.Invoker(cmd.RemoveProductCommand(cart, cart_item))
+    invoker.executeCommand()
 
     # redirecionar para carrinho do usuario
 
@@ -270,8 +235,6 @@ def product_page(request, id):
 
 @login_required
 def review_product(request, product_id, username):
-    # nao precisa usar username
-    # usar request.user
     if request.method == 'POST':
         form = ProductReviewForm(request.POST)
 
@@ -347,24 +310,18 @@ def set_department_discount(request, department):
 
 def make_order(request, id):
     if request.user.is_authenticated:
-        try:
-            Locations.objects.get(user=request.user)
-        except Locations.DoesNotExist:
-            return HttpResponseRedirect(reverse('manage_location'))
-        try:
-            PaymentMethod.objects.get(user=request.user)
-        except PaymentMethod.DoesNotExist:
-            return HttpResponseRedirect(reverse('manage_payment'))
-        else:
-            pd = Product.objects.filter(id=id).annotate(
-                effective_price=Case(
-                    When(sale_price__isnull=False, then=F('sale_price')),
-                    default=F('price')
-                )
-            ).first()
 
-            OrderItem.objects.create(product=pd, user=request.user, quantity=1, cost=pd.effective_price)
+        location_handler = cor.LocationHandler()
+        payment_handler = cor.PaymentInfoHandler()
+        location_handler.set_next(payment_handler)
+        response = location_handler.handle(request)
+
+        if not response:
+            invoker = cmd.Invoker(cmd.MakeOrder(request.user, id))
+            invoker.executeCommand()
             return HttpResponseRedirect(reverse('orders'))
+
+        return response
 
     return HttpResponse('Order placed successfully')
 

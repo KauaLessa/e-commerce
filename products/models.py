@@ -1,4 +1,4 @@
-from bdb import effective
+# from bdb import effective
 
 from django.db import models
 from django.contrib.auth.models import User
